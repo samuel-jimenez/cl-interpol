@@ -46,7 +46,7 @@
                (:file "alias")
                (:file "read")))
 
-(defsystem :cl-interpol-test
+(defsystem :cl-interpol/test
   :depends-on (:cl-interpol :flexi-streams)
   :components ((:module "test"
                         :serial t
@@ -54,5 +54,5 @@
                                      (:file "tests")))))
 
 (defmethod perform ((o test-op) (c (eql (find-system :cl-interpol))))
-  (operate 'load-op :cl-interpol-test)
-  (funcall (intern (symbol-name :run-all-tests) (find-package :cl-interpol-test))))
+  (operate 'load-op :cl-interpol/test)
+  (funcall (intern (symbol-name :run-all-tests) (find-package :cl-interpol/test))))
