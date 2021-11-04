@@ -30,29 +30,35 @@
 (in-package :cl-user)
 
 (defpackage :cl-interpol-asd
-  (:use :cl :asdf))
+	(:use :cl :asdf))
 
 (in-package :cl-interpol-asd)
 
 (defsystem :cl-interpol
-  :version "0.2.7"
-  :license "BSD-2-Clause"
-  :serial t
-  :depends-on (:cl-unicode
-               :named-readtables)
-  :components ((:file "packages")
-               (:file "specials")
-               (:file "util")
-               (:file "alias")
-               (:file "read")))
+	:version "0.2.7"
+	:license "BSD-2-Clause"
+	:serial t
+	:depends-on (
+						:cl-ppcre
+						:cl-unicode
+						:named-readtables
+					)
+	:components (
+						(:file "packages")
+						(:file "specials")
+						(:file "util")
+						(:file "alias")
+						(:file "read")))
 
 (defsystem :cl-interpol/test
-  :depends-on (:cl-interpol :flexi-streams)
-  :components ((:module "test"
-                        :serial t
-                        :components ((:file "packages")
-                                     (:file "tests")))))
+	:depends-on (:cl-interpol :flexi-streams)
+	:components ((
+		:module "test"
+		:serial t
+		:components (
+			(:file "packages")
+			(:file "tests")))))
 
 (defmethod perform ((o test-op) (c (eql (find-system :cl-interpol))))
-  (operate 'load-op :cl-interpol/test)
-  (funcall (intern (symbol-name :run-all-tests) (find-package :cl-interpol/test))))
+	(operate 'load-op :cl-interpol/test)
+	(funcall (intern (symbol-name :run-all-tests) (find-package :cl-interpol/test))))
